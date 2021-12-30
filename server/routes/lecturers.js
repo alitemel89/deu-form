@@ -3,6 +3,7 @@ const router = express.Router();
 const pool = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const config = require('config')
 const { check, validationResult } = require('express-validator');
 
 
@@ -35,15 +36,18 @@ router.post("/", [
                 [name, surname, email, userPassword]
             );
 
+            const payload = {
+                newLecturer: {
+                    lecturer_id: newLecturer.lecturer_id
+                }
+            }
 
-            // jwt.sign(lecturer_id, config.get('jwtSecret'), {
-            //     expiresIn: 360000
-            // }, (err, token) => {
-            //     if (err) throw err;
-            //     res.json({ token })
-            // });
-
-            res.json(newLecturer);
+            jwt.sign(payload, config.get('jwtSecret'), {
+                expiresIn: 360000
+            }, (err, token) => {
+                if (err) throw err;
+                res.json({ token })
+            });
 
         } catch (err) {
             console.error(err.message);
