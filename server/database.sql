@@ -4,5 +4,6 @@ CREATE TABLE lecturer(
     lecturer_id SERIAL PRIMARY KEY,
     name VARCHAR(50),
     surname VARCHAR(50),
-    email VARCHAR(255) UNIQUE
+    email VARCHAR(255),
+    password VARCHAR(100)
 );
