@@ -56,6 +56,7 @@ router.post("/", [
     });
 
 // Get all Lecturers
+// GET api/lecturers
 router.get('/', async (req, res) => {
     try {
         const allLecturers = await pool.query("SELECT * FROM lecturer");
