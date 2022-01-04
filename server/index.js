@@ -14,6 +14,7 @@ app.use(cors());
 // Define Routes
 app.use('/api/lecturers', require('./routes/lecturers'))
 app.use('/api/auth', require('./routes/auth'))
+app.use('/api/info', require('./routes/info'))
 
 const PORT = 5000;
 
