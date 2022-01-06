@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import AuthContext from "../context/auth/authContext";
-import AlertContext from "../context/alert/alertContext";
 
 const Register = (props) => {
 
@@ -12,23 +11,16 @@ const Register = (props) => {
         password: "",
     });
 
+    const [color, setColor] = useState("primary")
+
     const { name, surname, email, password } = user;
 
     const authContext = useContext(AuthContext);
-    const alertContext = useContext(AlertContext);
 
-    const { setAlert } = alertContext;
     const { register, error, clearErrors, isAuthenticated } = authContext;
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            props.history.push('/')
-        }
-        if (error === 'User already exists') {
-            clearErrors()
-        }
-        // eslint-disable-next-line
-    }, [error, isAuthenticated, props.history])
+
+
 
     const handleChange = (e) => {
         setUser({
@@ -39,8 +31,8 @@ const Register = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (name === "" || email === "" || password === "") {
-            setAlert(" Please enter all fields", "danger");
+        if (name === "" || surname === "" || email === "" || password === "") {
+            setColor("primary")
         }
         else {
             register({
@@ -49,6 +41,8 @@ const Register = (props) => {
                 email,
                 password
             })
+
+            setColor("secondary")
         }
     };
 
@@ -58,13 +52,16 @@ const Register = (props) => {
                 <Row className="justify-content-md-center my-4">
                     <Col xs="12" md="10">
                         <h2>Kayıt Olun</h2>
-                        <Form>
+                        <Form onSubmit={handleSubmit}>
                             <Form.Group className="my-3">
                                 <Form.Label>Adınız</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Adınız"
                                     required
+                                    onChange={handleChange}
+                                    name="name"
+                                    value={name}
                                 />
                             </Form.Group>
 
@@ -74,6 +71,9 @@ const Register = (props) => {
                                     type="text"
                                     placeholder="Soyadınız"
                                     required
+                                    onChange={handleChange}
+                                    value={surname}
+                                    name="surname"
                                 />
                             </Form.Group>
 
@@ -83,6 +83,9 @@ const Register = (props) => {
                                     type="text"
                                     placeholder="Email"
                                     required
+                                    onChange={handleChange}
+                                    value={email}
+                                    name="email"
                                 />
                             </Form.Group>
 
@@ -92,13 +95,15 @@ const Register = (props) => {
                                     type="password"
                                     placeholder="Şifreniz"
                                     required
+                                    onChange={handleChange}
+                                    value={password}
+                                    name="password"
                                 />
                             </Form.Group>
 
-                            <Button variant="primary" type="submit" className="mt-1">
+                            <Button variant={color} type="submit" className="mt-1">
                                 Kaydı Tamamla
                             </Button>
-
                         </Form>
                     </Col>
                 </Row>
@@ -107,4 +112,4 @@ const Register = (props) => {
     )
 }
 
-export default Register
+export default Register;

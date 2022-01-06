@@ -1,20 +1,26 @@
 import React from 'react';
 import Header from './components/Header';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Register from './pages/Register';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './pages/Login';
+import Register from './pages/Register';
+import Home from './pages/Home';
+
+import AuthState from './context/auth/AuthState';
 
 
 function App() {
     return (
         <>
-            <Router>
-                <Header />
-                <Routes>
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login />} />
-                </Routes>
-            </Router>
+            <AuthState>
+                <BrowserRouter>
+                    <Header />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/login" element={<Login />} />
+                    </Routes>
+                </BrowserRouter>
+            </AuthState>
         </>
     );
 };
