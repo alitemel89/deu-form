@@ -9,4 +9,4 @@ const LecturerForm = () => {
     )
 }
 
-export default LecturerForm
+export default LecturerForm;

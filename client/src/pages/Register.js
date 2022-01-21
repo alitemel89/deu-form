@@ -1,8 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import AuthContext from "../context/auth/authContext";
 
 const Register = (props) => {
+    let navigate = useNavigate();
 
     const [user, setUser] = useState({
         name: "",
@@ -17,10 +19,17 @@ const Register = (props) => {
 
     const authContext = useContext(AuthContext);
 
-    const { register, error, clearErrors, isAuthenticated } = authContext;
+    const { register, isAuthenticated, loadUser } = authContext;
 
+    console.log(isAuthenticated)
 
+    useEffect(() => {
 
+        if (isAuthenticated) {
+            navigate('/lecturerinfo')
+        }
+
+    }, [isAuthenticated, navigate])
 
     const handleChange = (e) => {
         setUser({
@@ -42,7 +51,9 @@ const Register = (props) => {
                 password
             })
 
-            setColor("secondary")
+            setColor("secondary");
+
+            loadUser();
         }
     };
 
