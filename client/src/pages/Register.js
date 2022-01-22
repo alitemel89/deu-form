@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import AuthContext from "../context/auth/authContext";
 
-const Register = (props) => {
+const Register = () => {
     let navigate = useNavigate();
 
     const [user, setUser] = useState({
@@ -19,7 +19,7 @@ const Register = (props) => {
 
     const authContext = useContext(AuthContext);
 
-    const { register, isAuthenticated, loadUser } = authContext;
+    const { register, isAuthenticated } = authContext;
 
     console.log(isAuthenticated)
 
@@ -52,8 +52,6 @@ const Register = (props) => {
             })
 
             setColor("secondary");
-
-            loadUser();
         }
     };
 

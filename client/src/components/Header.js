@@ -7,13 +7,17 @@ import AuthContext from '../context/auth/authContext';
 const Header = () => {
 
     const authContext = useContext(AuthContext);
-    const { isAuthenticated, user, loadUser } = authContext;
+    const { isAuthenticated, user, loadUser, logout } = authContext;
 
 
     useEffect(() => {
         loadUser();
         // eslint-disable-next-line
     }, []);
+
+    const handleLogout = () => {
+        logout();
+    };
 
 
     console.log(user);
@@ -25,11 +29,11 @@ const Header = () => {
                     {
                         isAuthenticated ? (
                             <Nav className="mr-auto">
-                                <Nav.Link as={Link} to="/login">
-                                    <Button variant="success">{user.name}</Button>
+                                <Nav.Link as={Link} to="/lecturerinfo">
+                                    <Button variant="success">Merhaba {user && user.name}</Button>
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/register">
-                                    <Button variant="primary" className="ms-2">Çıkış Yap</Button>
+                                    <Button variant="primary" className="ms-2" onClick={handleLogout}>Çıkış Yap</Button>
                                 </Nav.Link>
                             </Nav>
                         ) : (

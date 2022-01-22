@@ -12,8 +12,8 @@ const { check, validationResult } = require('express-validator');
 // GET api/auth
 router.get('/', auth, async (req, res) => {
     try {
-        const lecturer = await pool.query(`SELECT * FROM lecturer WHERE lecturer_id=$1`,
-            [req.body.lecturer_id]);
+        const lecturer = await pool.query(`SELECT * FROM lecturer WHERE email=$1`,
+            [req.body.email]);
 
         res.json(lecturer.rows[0]);
     } catch (err) {
@@ -33,7 +33,7 @@ router.post('/', [
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() })
-        } 
+        }
 
         const { email, password } = req.body;
 
@@ -44,7 +44,7 @@ router.post('/', [
 
             const lecturerEmail = currentLecturer.rows[0].email;
             const lecturerPassword = currentLecturer.rows[0].password;
-            
+
             if (!currentLecturer && lecturerEmail !== email) {
                 return res.status(400).json({ msg: 'Invalid Credentials' })
             }
