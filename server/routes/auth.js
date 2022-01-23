@@ -12,8 +12,7 @@ const { check, validationResult } = require('express-validator');
 // GET api/auth
 router.get('/', auth, async (req, res) => {
     try {
-        const lecturer = await pool.query(`SELECT * FROM lecturer WHERE email=$1`,
-            [req.body.email]);
+        const lecturer = await pool.query(`SELECT name FROM lecturer ORDER BY lecturer_id DESC LIMIT 1;`);
 
         res.json(lecturer.rows[0]);
     } catch (err) {

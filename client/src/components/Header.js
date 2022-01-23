@@ -7,11 +7,13 @@ import AuthContext from '../context/auth/authContext';
 const Header = () => {
 
     const authContext = useContext(AuthContext);
+    let userObj;
     const { isAuthenticated, user, loadUser, logout } = authContext;
 
 
     useEffect(() => {
         loadUser();
+
         // eslint-disable-next-line
     }, []);
 
@@ -21,6 +23,7 @@ const Header = () => {
 
 
     console.log(user);
+
     return (
         <>
             <Navbar bg="dark" variant="dark">
