@@ -20,7 +20,7 @@ function App() {
                     <BrowserRouter>
                         <Fragment>
                             <Header />
-                            <div className="container">
+                            <div className="container mt-2">
                                 <Alerts />
                                 <Routes>
                                     <Route path="/" element={<Home />} />
