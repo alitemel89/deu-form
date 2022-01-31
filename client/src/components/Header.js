@@ -7,7 +7,6 @@ import AuthContext from '../context/auth/authContext';
 const Header = () => {
 
     const authContext = useContext(AuthContext);
-    let userObj;
     const { isAuthenticated, user, loadUser, logout } = authContext;
 
 
