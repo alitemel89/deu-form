@@ -12,7 +12,7 @@ CREATE TABLE lecturer_info(
     name VARCHAR(50), 
     surname VARCHAR(50), 
     email VARCHAR(50), 
-    gender NUMERIC, 
+    gender VARCHAR(50), 
     birthDate DATE,  
     tenureTitle VARCHAR(50), 
     tenureDate DATE, 

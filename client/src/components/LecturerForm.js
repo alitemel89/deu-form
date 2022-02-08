@@ -2,15 +2,32 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale } from  "react-datepicker";
+import { registerLocale } from "react-datepicker";
 import tr from 'date-fns/locale/tr';
 registerLocale('tr', tr);
 
 
 const LecturerForm = () => {
-
-  const [checked, setChecked] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
+
+  const [info, setInfo] = useState({
+    name: "",
+    surname: "",
+    email: "",
+    gender: "",
+    birthDate: startDate
+  });
+
+  const { name, surname, email, gender, birthDate } = info;
+
+  const handleChange = (e) => {
+    setInfo({
+      ...info,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+
   return (
     <>
       <Container>
@@ -24,7 +41,8 @@ const LecturerForm = () => {
                   type="text"
                   placeholder="Adınız"
                   required
-                  name="name"
+                  name={name}
+                  onChange={handleChange}
                 />
               </Form.Group>
 
@@ -35,6 +53,8 @@ const LecturerForm = () => {
                   placeholder="Soyadınız"
                   required
                   name="surname"
+                  value={surname}
+                  onChange={handleChange}
                 />
               </Form.Group>
 
@@ -46,19 +66,35 @@ const LecturerForm = () => {
                   placeholder="Email"
                   required
                   name="email"
+                  value={email}
+                  onChange={handleChange}
                 />
               </Form.Group>
 
               <Form.Group className="my-3">
                 <Form.Label>Cinsiyetiniz</Form.Label>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onClick={() => setChecked(true)} />
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    id="flexRadioDefault1"
+                    name="gender"
+                    value="Male"
+                    onChange={handleChange}
+                  />
                   <label className="form-check-label" htmlFor="flexRadioDefault1">
                     Erkek
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick={() => setChecked(true)} />
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    id="flexRadioDefault2"
+                    onChange={handleChange}
+                    name="gender"
+                    value="Female"
+                  />
                   <label className="form-check-label" htmlFor="flexRadioDefault2">
                     Kadın
                   </label>
@@ -67,7 +103,10 @@ const LecturerForm = () => {
 
               <Form.Group className="my-3">
                 <Form.Label>Doğum Tarihiniz</Form.Label>
-                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} locale="tr" />
+                <DatePicker
+                  locale="tr"
+                  selected={startDate} onChange={(date) => setStartDate(date)}
+                />
               </Form.Group>
 
               <Button type="submit" className="mt-1">
