@@ -27,22 +27,12 @@ router.post('/',
             return res.status(400).json({ errors: errors.array() })
         }
 
-        const { name, surname, email, gender, birthDate,
-            tenureTitle, tenureDate, academicTitle,
-            academicDate, faculty, department,
-            division, undergraduateHours, graduateHours,
-            languageScore, projectsOwner, projectsResearcher,
-            administrativeDuty } = req.body;
+        const { name, surname, email, gender, birthDate } = req.body;
 
         try {
             const lecturerInfo = await pool.query(
-                "INSERT INTO lecturer_info (name, surname, email, gender, birthDate, tenureTitle, tenureDate, academicTitle, academicDate, faculty, department, division, undergraduateHours, graduateHours, languageScore, projectsOwner, projectsResearcher, administrativeDuty) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING *",
-                [name, surname, email, gender, birthDate,
-                    tenureTitle, tenureDate, academicTitle,
-                    academicDate, faculty, department,
-                    division, undergraduateHours, graduateHours,
-                    languageScore, projectsOwner, projectsResearcher,
-                    administrativeDuty]
+                "INSERT INTO lecturer_info (name, surname, email, gender, birthDate) VALUES($1, $2, $3, $4, $5) RETURNING *",
+                [name, surname, email, gender, birthDate]
             );
 
             res.json(lecturerInfo.rows);
