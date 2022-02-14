@@ -9,23 +9,23 @@ registerLocale('tr', tr);
 
 
 const LecturerForm = () => {
-
-
+  const [startDate, setStartDate] = useState(new Date());
   const [info, setInfo] = useState({
     name: "",
     surname: "",
     email: "",
     gender: "",
-    birthDate: new Date()
+    birthDate: startDate
   });
 
-  const [startDate, setStartDate] = useState(new Date());
+  const [color, setColor] = useState("primary");
+  const [showSuccess, setShowSuccess] = useState(false);
+
 
   const { name, surname, email, gender, birthDate } = info;
 
   const lecturerContext = useContext(LecturerContext);
   const { addLecturerInfo } = lecturerContext;
-
 
 
   const handleChange = (e) => {
@@ -38,9 +38,31 @@ const LecturerForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addLecturerInfo();
-    console.log(info);
+
+    if (name === "" || surname === "" || email === "" || gender === "" || birthDate === new Date()) {
+      setColor("primary")
+    } else {
+      setShowSuccess(true)
+    }
+    addLecturerInfo({
+      name,
+      surname,
+      email,
+      gender,
+      birthDate: startDate
+    });
+
+    setInfo({
+      name: "",
+      surname: "",
+      email: "",
+      gender: "",
+      birthDate: new Date()
+    })
+
+    setColor("secondary")
   }
+
 
   return (
     <>
@@ -58,6 +80,7 @@ const LecturerForm = () => {
                   name="name"
                   value={name}
                   onChange={handleChange}
+                  disabled={showSuccess}
                 />
               </Form.Group>
 
@@ -70,6 +93,7 @@ const LecturerForm = () => {
                   name="surname"
                   value={surname}
                   onChange={handleChange}
+                  disabled={showSuccess}
                 />
               </Form.Group>
 
@@ -83,6 +107,7 @@ const LecturerForm = () => {
                   name="email"
                   value={email}
                   onChange={handleChange}
+                  disabled={showSuccess}
                 />
               </Form.Group>
 
@@ -96,6 +121,7 @@ const LecturerForm = () => {
                     value="Male"
                     checked={gender === "Male"}
                     onChange={handleChange}
+                    disabled={showSuccess}
                   />
                   <label className="form-check-label" htmlFor="flexRadioDefault1">
                     Erkek
@@ -109,6 +135,7 @@ const LecturerForm = () => {
                     value="Female"
                     checked={gender === "Female"}
                     onChange={handleChange}
+                    disabled={showSuccess}
                   />
                   <label className="form-check-label" htmlFor="flexRadioDefault2">
                     Kadın
@@ -124,15 +151,19 @@ const LecturerForm = () => {
                   value={birthDate}
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
+                  dateFormat="dd/MM/yyyy"
+                  disabled={showSuccess}
                 />
               </Form.Group>
 
-              <Button type="submit" className="mt-1">
+              <Button type="submit" variant={color} className="mt-1">
                 Gönder
               </Button>
+              {showSuccess && <h3 className='text-success mt-4'>Form verisi başarıyla gönderildi.</h3>}
             </Form>
           </Col>
         </Row>
+        
       </Container>
     </>
   )
