@@ -5,7 +5,9 @@ const pool = new Pool({
   password: "myPassword",
   host: "localhost",
   port: 5432,
-  database: "arge"
+  database: "arge",
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
 });
 
 module.exports = pool;
