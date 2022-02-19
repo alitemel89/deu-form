@@ -25,7 +25,7 @@ const Login = () => {
             clearErrors()
         }
 
-    }, [error, isAuthenticated, navigate])
+    }, [error, isAuthenticated, navigate, setAlert, clearErrors])
 
     const [user, setUser] = useState({
         email: "",

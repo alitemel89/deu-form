@@ -32,7 +32,7 @@ const Header = () => {
                         isAuthenticated ? (
                             <Nav className="mr-auto">
                                 <Nav.Link as={Link} to="/lecturerinfo">
-                                    <Button variant="success">Merhaba {user && user.name}</Button>
+                                    <Button variant="success">Bilgileriniz</Button>
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/register">
                                     <Button variant="primary" className="ms-2" onClick={handleLogout}>Çıkış Yap</Button>

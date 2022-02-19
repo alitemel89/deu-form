@@ -85,6 +85,7 @@ const AuthState = (props) => {
                 type: LOGIN_FAIL,
                 payload: err.response.data.msg,
             });
+
         }
     };
 
