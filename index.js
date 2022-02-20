@@ -4,6 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const { Client } = require('pg');
 
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({
