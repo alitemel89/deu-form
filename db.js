@@ -1,14 +1,20 @@
 const Pool = require("pg").Pool;
+const { Client } = require('pg');
 
 const pool = new Pool({
   user: "postgres",
   password: "myPassword",
-  host: "https://dry-dawn-24525.herokuapp.com",
+  host: "localhost",
   port: 5432,
   database: "arge",
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
 });
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL ? true : false
+});
+
+client.connect()
 
 module.exports = pool;
 
