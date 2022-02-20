@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
 
 
 const client = new Client({
-  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:myPassword@127.0.0.1:5432/arge',
+  connectionString: process.env.DATABASE_URL,
   ssl: process.env.DATABASE_URL ? true : false
 });
 
