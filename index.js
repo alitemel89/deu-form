@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const path = require("path");
+const { Client } = require('pg');
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({
@@ -26,6 +27,14 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   })
 }
+
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:myPassword@localhost:5432/arge',
+  ssl: process.env.DATABASE_URL ? true : false
+});
+
+client.connect();
 
 
 const PORT = process.env.PORT || 5000;
