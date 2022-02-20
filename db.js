@@ -1,5 +1,5 @@
 const Pool = require("pg").Pool;
-const { Client } = require('pg');
+
 
 const pool = new Pool({
   user: "postgres",
