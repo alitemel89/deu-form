@@ -36,8 +36,8 @@ const client = new Client({
 
 client.connect();
 
-
+const host = '0.0.0.0';
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`))
+app.listen(PORT, host, () => console.log(`Server Running on Port: http://localhost:${PORT}`))
 
