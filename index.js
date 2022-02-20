@@ -35,6 +35,14 @@ const client = new Client({
 
 client.connect();
 
+client.query('SELECT * FROM lecturer;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
+
 const host = '0.0.0.0';
 const PORT = process.env.PORT || 5000;
 
