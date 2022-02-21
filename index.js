@@ -3,6 +3,8 @@ const app = express();
 const cors = require("cors");
 const path = require("path");
 const { Client } = require('pg');
+const config = require('config');
+const connectionString = config.get('pgURI');
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
@@ -29,8 +31,8 @@ if (process.env.NODE_ENV === "production") {
 
 
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL ? true : false
+  connectionString: connectionString,
+  ssl: connectionString ? true : false
 });
 
 client.connect();
