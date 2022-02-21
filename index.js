@@ -3,8 +3,6 @@ const app = express();
 const cors = require("cors");
 const path = require("path");
 const { Client } = require('pg');
-const config = require('config');
-const connectionString = config.get('pgURI');
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
@@ -31,8 +29,8 @@ if (process.env.NODE_ENV === "production") {
 
 
 const client = new Client({
-  connectionString: connectionString,
-  ssl: connectionString ? true : false
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL ? true : false
 });
 
 client.connect();
@@ -47,7 +45,7 @@ client.query('SELECT * FROM lecturer;', (err, res) => {
     }
   }
 
- 
+
   client.end();
 });
 
