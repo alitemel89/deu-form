@@ -44,10 +44,9 @@ client.query('SELECT * FROM lecturer;', (err, res) => {
       console.log(JSON.stringify(row));
     }
   }
-
-
   client.end();
 });
+
 
 const host = '0.0.0.0';
 const PORT = process.env.PORT || 5000;
